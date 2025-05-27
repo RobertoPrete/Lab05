@@ -1,3 +1,24 @@
+from dataclasses import dataclass
+
+from model.corso import Corso
+
+
+@dataclass
 class Studente:
-    def __init__(self):
-        pass
+    matricola: int
+    cognome: str
+    nome: str
+    CDS: str
+    corsi: set[Corso]
+
+    def __eq__(self, other):
+        return self.matricola == other.matricola
+
+    def __hash__(self):
+        return hash(self.matricola)
+
+    def __str__(self):
+        return f"Studente: {self.nome} {self.cognome}, numero di matricola: {self.matricola}"
+
+    # def __init__(self):
+    #     pass
