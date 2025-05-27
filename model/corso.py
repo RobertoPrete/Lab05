@@ -12,7 +12,7 @@ class Corso:
     studenti: set[Studente]
 
     def __str__(self):
-        return f"Codice corso di insegnamento: {self.codins}, nome corso: {self.nome}, periodo didattico: {self.pd}"
+        return f"{self.nome} ({self.codins})"
 
     def __eq__(self, other):
         return self.codins == other.codins

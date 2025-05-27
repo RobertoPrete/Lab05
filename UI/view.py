@@ -13,30 +13,52 @@ class View(ft.UserControl):
         self._controller = None
         # graphical elements
         self._title = None
-        self.txt_name = None
-        self.btn_hello = None
+        self.select_corso = None
+        self.btn_cerca_iscritti = None
+        self.txt_matricola = None
+        self.txt_nome = None
+        self.txt_cognome = None
         self.txt_result = None
-        self.txt_container = None
 
     def load_interface(self):
         """Function that loads the graphical elements of the view"""
         # title
-        self._title = ft.Text("Hello World", color="blue", size=24)
+        self._title = ft.Text("App Gestione Studenti", color="blue", size=24, text_align=ft.TextAlign.CENTER)
         self._page.controls.append(self._title)
 
-        #ROW with some controls
-        # text field for the name
-        self.txt_name = ft.TextField(
-            label="name",
-            width=200,
-            hint_text="Insert a your name"
-        )
+        # Row1: nella prima riga metterò il dropdown per selezionare il corso e il bottone
+        # per cercare gli iscritti di quel corso
 
-        # button for the "hello" reply
-        self.btn_hello = ft.ElevatedButton(text="Hello", on_click=self._controller.handle_hello)
-        row1 = ft.Row([self.txt_name, self.btn_hello],
-                      alignment=ft.MainAxisAlignment.CENTER)
+        self.select_corso = ft.Dropdown(label="corso", hint_text="Seleziona un corso", width=400)
+        # poi devo mettere l'attributo options e riempirlo con i vari corsi che recupero dal database
+
+        self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca Iscritti", on_click=self._controller.handle_hello)
+
+        row1 = ft.Row([self.select_corso, self.btn_cerca_iscritti], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
+
+        # Row2: nella seconda riga metterò un campo di testo dove poter inserire una matricola,
+        # un campo dove apparirà il nome della matricola inserita
+        # e un campo dove apparirà il cognome della matricola inserita
+
+        self.txt_matricola = ft.TextField(
+            label="matricola",
+            width=100,
+            hint_text="Inserire una matricola"
+        )
+        self.txt_nome = ft.TextField(label="nome", read_only=True, width=200)
+        self.txt_cognome = ft.TextField(label="cognome", read_only=True, width=200)
+
+        row2 = ft.Row([self.txt_matricola, self.txt_nome, self.txt_cognome], alignment=ft.MainAxisAlignment.CENTER)
+
+        self._page.controls.append(row2)
+
+        # Row3: nella terza riga inserire tre bottoni:
+        # il primo per cercare uno studente
+        # il secondo per cercare un corso
+        # il terzo per iscrivere uno studente ad un corso
+
+        # inserire i controls della riga 3
 
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
