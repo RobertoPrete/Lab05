@@ -18,6 +18,9 @@ class View(ft.UserControl):
         self.txt_matricola = None
         self.txt_nome = None
         self.txt_cognome = None
+        self.btn_cerca_studente = None
+        self.btn_cerca_corso = None
+        self.btn_iscrivi_studente = None
         self.txt_result = None
 
     def load_interface(self):
@@ -56,13 +59,20 @@ class View(ft.UserControl):
         # Row3: nella terza riga inserire tre bottoni:
         # il primo per cercare uno studente
         # il secondo per cercare un corso
-        # il terzo per iscrivere uno studente ad un corso
+        # il terzo per iscrivere uno studente a un corso
 
-        # inserire i controls della riga 3
+        self.btn_cerca_studente = ft.ElevatedButton(text="Cerca studente", on_click=self._controller.handle_hello)
+        self.btn_cerca_corso = ft.ElevatedButton(text="Cerca corsi", on_click=self._controller.handle_hello)
+        self.btn_iscrivi_studente = ft.ElevatedButton(text="Iscrivi", on_click=self._controller.handle_hello)
+
+        row3 = ft.Row([self.btn_cerca_studente, self.btn_cerca_corso, self.btn_iscrivi_studente])
+
+        self._page.controls.append(row3)
 
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
         self._page.controls.append(self.txt_result)
+
         self._page.update()
 
     @property
