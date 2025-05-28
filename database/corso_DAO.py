@@ -2,6 +2,7 @@
 
 from database.DB_connect import get_connection
 from model.corso import Corso
+from model.studente import Studente
 
 
 class CorsoDAO:
@@ -9,15 +10,21 @@ class CorsoDAO:
     def get_Allcorsi():
         cnx = get_connection()
         cursor = cnx.cursor(dictionary=True)
-        query = """SELECT * FROM corso c"""
+        query = """select * from corso c"""
         cursor.execute(query)
         res = []
-        # studenti = []
         for row in cursor:
-            # codins = row["codins"]
-            # new_query = """select matricola from iscrizione i where codins=%s"""
-            # cursor.execute(new_query, codins)
-            # for riga in cursor:
-            # res.append(Corso(row["codins"], row["crediti"], row["nome"], row["pd"], ))
+            res.append(Corso(row["codins"], row["crediti"], row["nome"], row["pd"]))
         cnx.close()
+        return res
+
+    @staticmethod
+    def get_studenti_corso(codins):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select matricola from iscrizione i where i.codins=%s"""
+        cursor.execute(query, codins)
+        res = []
+        for row in cursor:
+            res.append(row["matricola"])
         return res

@@ -9,7 +9,6 @@ class Corso:
     crediti: int
     nome: str
     pd: int
-    studenti: set[Studente]
 
     def __str__(self):
         return f"{self.nome} ({self.codins})"

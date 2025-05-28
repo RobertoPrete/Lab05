@@ -9,7 +9,6 @@ class Studente:
     cognome: str
     nome: str
     CDS: str
-    corsi: set[Corso]
 
     def __eq__(self, other):
         return self.matricola == other.matricola
