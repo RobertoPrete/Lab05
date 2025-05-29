@@ -1,3 +1,5 @@
+import pathlib
+
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -5,7 +7,7 @@ from mysql.connector import errorcode
 def get_connection() -> mysql.connector.connection:
     try:
         cnx = mysql.connector.connect(
-            option_files='./database/connector.cnf'
+            option_files=f"{pathlib.Path(__file__).parent.resolve()}/connector.cnf"
         )
         return cnx
     except mysql.connector.Error as err:

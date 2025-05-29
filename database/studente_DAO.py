@@ -9,7 +9,7 @@ class StudenteDAO:
     @staticmethod
     def get_all_students():
         cnx = get_connection()
-        cursor = cnx.cursor()
+        cursor = cnx.cursor(dictionary=True)
         query = """select * from studente s"""
         cursor.execute(query)
         res = []

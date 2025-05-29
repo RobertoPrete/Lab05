@@ -54,5 +54,4 @@ class CorsoDAO:
         return res
 
 if __name__ == "__main__":
-    corso = CorsoDAO()
-    corso.get_Allcorsi()
+    CorsoDAO().get_Allcorsi()
