@@ -1,5 +1,8 @@
 import flet as ft
 
+# from model import corso
+from model.corso import Corso
+
 
 class View(ft.UserControl):
     def __init__(self, page: ft.Page):
@@ -32,8 +35,12 @@ class View(ft.UserControl):
         # Row1: nella prima riga metterò il dropdown per selezionare il corso e il bottone
         # per cercare gli iscritti di quel corso
 
-        self.select_corso = ft.Dropdown(label="corso", hint_text="Seleziona un corso", width=400)
+        self.select_corso = ft.Dropdown(label="corso",
+                                        hint_text="Seleziona un corso",
+                                        width=400,
+                                        options=[])
         # poi devo mettere l'attributo options e riempirlo con i vari corsi che recupero dal database
+        self._controller.riempi_dd_corsi()
 
         self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca Iscritti", on_click=self._controller.handle_hello)
 

@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from model.studente import Studente
-
 
 @dataclass
 class Corso:
@@ -18,6 +16,9 @@ class Corso:
 
     def __hash__(self):
         return hash(self.codins)
+
+    def get_codins(self) -> str:
+        return self.codins
 
     # def __init__(self):
     #    pass

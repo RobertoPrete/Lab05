@@ -2,7 +2,6 @@
 
 from database.DB_connect import get_connection
 from model.corso import Corso
-from model.studente import Studente
 
 
 class CorsoDAO:
@@ -27,4 +26,33 @@ class CorsoDAO:
         res = []
         for row in cursor:
             res.append(row["matricola"])
+        cnx.close()
         return res
+
+    @staticmethod
+    def get_all_codins():
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select codins from corso c"""
+        cursor.execute(query)
+        res = []
+        for row in cursor:
+            res.append(row["codins"])
+        cnx.close()
+        return res
+
+    @staticmethod
+    def get_codins(nome_corso):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select codins from corso c where c.nome=%s"""
+        cursor.execute(query, nome_corso)
+        res = []
+        for row in cursor:
+            res.append(row["codins"])
+        cnx.close()
+        return res
+
+if __name__ == "__main__":
+    corso = CorsoDAO()
+    corso.get_Allcorsi()

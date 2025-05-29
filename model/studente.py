@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from model.corso import Corso
-
 
 @dataclass
 class Studente:
