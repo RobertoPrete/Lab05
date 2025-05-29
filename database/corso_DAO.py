@@ -22,7 +22,7 @@ class CorsoDAO:
         cnx = get_connection()
         cursor = cnx.cursor(dictionary=True)
         query = """select matricola from iscrizione i where i.codins=%s"""
-        cursor.execute(query, codins)
+        cursor.execute(query, (codins,))
         res = []
         for row in cursor:
             res.append(row["matricola"])
@@ -46,7 +46,7 @@ class CorsoDAO:
         cnx = get_connection()
         cursor = cnx.cursor(dictionary=True)
         query = """select codins from corso c where c.nome=%s"""
-        cursor.execute(query, nome_corso)
+        cursor.execute(query, (nome_corso,))
         res = []
         for row in cursor:
             res.append(row["codins"])

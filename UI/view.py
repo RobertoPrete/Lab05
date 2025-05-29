@@ -37,12 +37,12 @@ class View(ft.UserControl):
 
         self.select_corso = ft.Dropdown(label="corso",
                                         hint_text="Seleziona un corso",
-                                        width=400,
+                                        width=500,
                                         options=[])
         # poi devo mettere l'attributo options e riempirlo con i vari corsi che recupero dal database
         self._controller.riempi_dd_corsi()
 
-        self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca Iscritti", on_click=self._controller.handle_hello)
+        self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca Iscritti", on_click=self.controller.ha)
 
         row1 = ft.Row([self.select_corso, self.btn_cerca_iscritti], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
@@ -68,11 +68,11 @@ class View(ft.UserControl):
         # il secondo per cercare un corso
         # il terzo per iscrivere uno studente a un corso
 
-        self.btn_cerca_studente = ft.ElevatedButton(text="Cerca studente", on_click=self._controller.handle_hello)
-        self.btn_cerca_corso = ft.ElevatedButton(text="Cerca corsi", on_click=self._controller.handle_hello)
-        self.btn_iscrivi_studente = ft.ElevatedButton(text="Iscrivi", on_click=self._controller.handle_hello)
+        self.btn_cerca_studente = ft.ElevatedButton(text="Cerca studente")
+        self.btn_cerca_corso = ft.ElevatedButton(text="Cerca corsi")
+        self.btn_iscrivi_studente = ft.ElevatedButton(text="Iscrivi")
 
-        row3 = ft.Row([self.btn_cerca_studente, self.btn_cerca_corso, self.btn_iscrivi_studente])
+        row3 = ft.Row([self.btn_cerca_studente, self.btn_cerca_corso, self.btn_iscrivi_studente], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.controls.append(row3)
 

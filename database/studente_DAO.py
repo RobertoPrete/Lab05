@@ -17,3 +17,24 @@ class StudenteDAO:
             res.append(Studente(row["matricola"], row["cognome"], row["nome"], row["CDS"]))
         cnx.close()
         return res
+
+    @staticmethod
+    def get_studenti_corso(codins):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select s.nome, s.cognome, s.matricola 
+                    from iscrizione i inner join studente s on i.matricola=s.matricola 
+                    where i.codins=%s"""
+        cursor.execute(query, (codins,))
+        res = []
+        for row in cursor:
+            res.append((row["nome"], row["cognome"], row["matricola"]))
+        cnx.close()
+        return res
+
+
+if __name__ == "__main__":
+    res = StudenteDAO.get_studenti_corso("02CIXPG")
+    print(res)
+    print(type(res))
+
