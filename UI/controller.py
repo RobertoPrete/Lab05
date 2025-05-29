@@ -15,6 +15,7 @@ class Controller:
             self._view.select_corso.options.append(ft.dropdown.Option(key=corso.codins, text=corso.__str__()))
 
     def handle_cerca_iscritti(self, e):
+        # da vedere e fare bene
         if e.control.value == "":
             self._view.create_alert("Selezionare un corso!")
         else:

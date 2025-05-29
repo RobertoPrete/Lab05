@@ -53,5 +53,7 @@ class CorsoDAO:
         cnx.close()
         return res
 
+
 if __name__ == "__main__":
-    CorsoDAO().get_Allcorsi()
+    print(CorsoDAO().get_Allcorsi())
+    print(type(CorsoDAO().get_Allcorsi()))

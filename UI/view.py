@@ -1,8 +1,5 @@
 import flet as ft
 
-# from model import corso
-from model.corso import Corso
-
 
 class View(ft.UserControl):
     def __init__(self, page: ft.Page):
