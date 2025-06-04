@@ -15,10 +15,19 @@ class Controller:
             self._view.select_corso.options.append(ft.dropdown.Option(key=corso.codins, text=corso.__str__()))
 
     def handle_cerca_iscritti(self, e):
-        # da vedere e fare bene gestendo prima la handle del dropdown dei corsi
-        if e.control.value == "":
+        if self._view.txt_result is None or len(self._view.txt_result.controls) == 0:
             self._view.create_alert("Selezionare un corso!")
         else:
-            studenti = StudenteDAO.get_studenti_corso(e.control)
+            codins = e.control.value = self._view.select_corso.value
+            studenti = StudenteDAO.get_studenti_corso(codins)
+            numero_studenti = StudenteDAO.get_num_studenti_corso(codins)
+            self._view.txt_result.controls.clear()
+            self._view.txt_result.controls.append(ft.Text(value=f"Ci sono {numero_studenti[0]} studenti iscritti al corso:"))
             for studente in studenti:
-                self._view.txt_result.controls.append(ft.Text(value=studente.__str__()))
+                self._view.txt_result.controls.append(ft.Text(value=f"{studente[0]}, {studente[1]} ({studente[2]})"))
+            self._view.update_page()
+
+    def handle_selezione_corsi(self, e):
+        self._view.txt_result.controls.clear()
+        self._view.txt_result.controls.append(ft.Text(value=f"{e.control.value}"))
+        self._view.update_page()

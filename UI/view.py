@@ -35,11 +35,12 @@ class View(ft.UserControl):
         self.select_corso = ft.Dropdown(label="corso",
                                         hint_text="Seleziona un corso",
                                         width=500,
-                                        options=[])
+                                        options=[],
+                                        on_change=self.controller.handle_selezione_corsi)
         # poi devo mettere l'attributo options e riempirlo con i vari corsi che recupero dal database
         self._controller.riempi_dd_corsi()
 
-        self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca Iscritti", on_click=self.controller.ha)
+        self.btn_cerca_iscritti = ft.ElevatedButton(text="Cerca Iscritti", on_click=self.controller.handle_cerca_iscritti)
 
         row1 = ft.Row([self.select_corso, self.btn_cerca_iscritti], alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
