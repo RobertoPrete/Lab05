@@ -31,3 +31,41 @@ class Controller:
         self._view.txt_result.controls.clear()
         self._view.txt_result.controls.append(ft.Text(value=f"{e.control.value}"))
         self._view.update_page()
+
+    def handle_cerca_studente(self, e):
+        # deve cercare uno studente, ma deve cercarlo nella lista di studenti del corso che abbiamo cercato in precedenza
+        if self._view.txt_result is None or len(self._view.txt_result.controls) == 0:
+            self._view.create_alert("Selezionare un corso!")
+        elif self._view.txt_matricola.value == "" or self._view.txt_matricola is None:
+            self._view.create_alert("Inserire una matricola da cercare")
+        elif len(self._view.txt_matricola.value) != 6:
+            try:
+                if int(self._view.txt_matricola_value) != 6:
+                    self._view.create_alert("Matricola non valida, inserire un numero intero composto da 6 cifre")
+                    self._view.txt_matricola.value = ""
+                    self._view.update_page()
+            except ValueError:
+                self._view.create_alert("Matricola non valida, inserire un numero intero composto da 6 cifre")
+                self._view.txt_matricola.value = ""
+                self._view.update_page()
+        else:
+            try:
+                e.control.value = int(self._view.txt_matricola_value)
+            except ValueError:
+                self._view.create_alert("Matricola non valida, inserire un numero intero composto da 6 cifre")
+                self._view.txt_matricola.value = ""
+                self._view.update_page()
+            codins = self._view.select_corso.value
+            matricola = e.control.value
+            studente = StudenteDAO.get_studente_in_corso_from_matricola(codins, matricola)
+            #fare un check perchè dà un errore di tipo IndexError
+            self._view.txt_nome.value = studente[0]
+            self._view.txt_cognome.value = studente[1]
+            self._view.update_page()
+
+    def handle_riempi_matricola(self, e):
+        # self._view.txt_matricola.value = ""
+        self._view.txt_nome.value = ""
+        self._view.txt_cognome.value = ""
+        self._view.txt_matricola_value = e.control.value
+        self._view.update_page()

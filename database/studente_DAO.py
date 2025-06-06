@@ -46,6 +46,35 @@ class StudenteDAO:
         cnx.close()
         return res
 
+    @staticmethod
+    def get_studente_from_matricola(matr):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select nome, cognome 
+                        from studente s 
+                        where matricola = %s"""
+        cursor.execute(query, (matr,))
+        res = []
+        for row in cursor:
+            res.append((row["nome"], row["cognome"]))
+        cnx.close()
+        return res
+
+    @staticmethod
+    def get_studente_in_corso_from_matricola(codins, matr):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select s.nome, s.cognome 
+                    from iscrizione i inner join studente s on i.matricola=s.matricola 
+                    where i.codins=%s and s.matricola = %s
+                """
+        cursor.execute(query, (codins, matr))
+        res = []
+        for row in cursor:
+            res.append((row["nome"], row["cognome"]))
+        cnx.close()
+        return res
+
 
 if __name__ == "__main__":
     res = StudenteDAO.get_num_studenti_corso("02CIXPG")

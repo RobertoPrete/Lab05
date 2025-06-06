@@ -16,6 +16,7 @@ class View(ft.UserControl):
         self.select_corso = None
         self.btn_cerca_iscritti = None
         self.txt_matricola = None
+        self.txt_matricola_value = None
         self.txt_nome = None
         self.txt_cognome = None
         self.btn_cerca_studente = None
@@ -52,7 +53,8 @@ class View(ft.UserControl):
         self.txt_matricola = ft.TextField(
             label="matricola",
             width=100,
-            hint_text="Inserire una matricola"
+            hint_text="Inserire una matricola",
+            on_change=self.controller.handle_riempi_matricola
         )
         self.txt_nome = ft.TextField(label="nome", read_only=True, width=200)
         self.txt_cognome = ft.TextField(label="cognome", read_only=True, width=200)
@@ -66,7 +68,7 @@ class View(ft.UserControl):
         # il secondo per cercare un corso
         # il terzo per iscrivere uno studente a un corso
 
-        self.btn_cerca_studente = ft.ElevatedButton(text="Cerca studente")
+        self.btn_cerca_studente = ft.ElevatedButton(text="Cerca studente", on_click=self.controller.handle_cerca_studente)
         self.btn_cerca_corso = ft.ElevatedButton(text="Cerca corsi")
         self.btn_iscrivi_studente = ft.ElevatedButton(text="Iscrivi")
 
