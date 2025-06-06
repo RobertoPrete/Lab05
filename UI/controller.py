@@ -1,5 +1,6 @@
 import flet as ft
 
+from database.corso_DAO import CorsoDAO
 from database.studente_DAO import StudenteDAO
 
 
@@ -69,8 +70,27 @@ class Controller:
             self._view.update_page()
 
     def handle_riempi_matricola(self, e):
-        # self._view.txt_matricola.value = ""
         self._view.txt_nome.value = ""
         self._view.txt_cognome.value = ""
         self._view.txt_matricola_value = e.control.value
         self._view.update_page()
+
+    def handle_cerca_corsi_studente(self, e):
+        studenti = StudenteDAO.get_all_students()
+        lista_matricole = []
+        for studente in studenti:
+            lista_matricole.append(studente.matricola)
+        try:
+            if int(self._view.txt_matricola.value) not in lista_matricole:
+                self._view.create_alert("Errore! Matricola non presente nel database")
+            else:
+                self._view.txt_result.controls.clear()
+                numero_corsi_studente = len(CorsoDAO.get_corsi_from_matricola(int(self._view.txt_matricola.value)))
+                self._view.txt_result.controls.append(ft.Text(value=f"Risultano {numero_corsi_studente} corsi:"))
+                corsi_studente = CorsoDAO.get_corsi_from_matricola(int(self._view.txt_matricola.value))
+                for corso in corsi_studente:
+                    self._view.txt_result.controls.append(ft.Text(value=f"{corso.__str__()}"))
+                self._view.update_page()
+        except ValueError:
+            self._view.create_alert("Errore! Matricola non presente nel database")
+            self._view.create_alert("Matricola non valida, inserire un numero intero composto da 6 cifre")

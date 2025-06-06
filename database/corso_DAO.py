@@ -53,6 +53,23 @@ class CorsoDAO:
         cnx.close()
         return res
 
+    @staticmethod
+    def get_corsi_from_matricola(matricola):
+        cnx = get_connection()
+        cursor = cnx.cursor(dictionary=True)
+        query = """select c.codins, c.crediti, c.nome, c.pd 
+                    from corso c 
+                    inner join iscrizione i 
+                    on i.codins = c.codins 
+                    where i.matricola = %s
+                """
+        cursor.execute(query, (matricola,))
+        res = []
+        for row in cursor:
+            res.append(Corso(row["codins"], row["crediti"], row["nome"], row["pd"]))
+        cnx.close()
+        return res
+
 
 if __name__ == "__main__":
     print(CorsoDAO().get_Allcorsi())

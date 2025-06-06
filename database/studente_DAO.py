@@ -78,9 +78,9 @@ class StudenteDAO:
 
 
 if __name__ == "__main__":
-    res = StudenteDAO.get_studente_in_corso_from_matricola("01OVZPG", "190635")
+    res = StudenteDAO.get_all_students()
     print(res)
-    print(type(res))
-    print(res[0])
+    for studente in res:
+        print(studente.matricola)
 
 

@@ -69,7 +69,7 @@ class View(ft.UserControl):
         # il terzo per iscrivere uno studente a un corso
 
         self.btn_cerca_studente = ft.ElevatedButton(text="Cerca studente", on_click=self.controller.handle_cerca_studente)
-        self.btn_cerca_corso = ft.ElevatedButton(text="Cerca corsi")
+        self.btn_cerca_corso = ft.ElevatedButton(text="Cerca corsi", on_click=self.controller.handle_cerca_corsi_studente)
         self.btn_iscrivi_studente = ft.ElevatedButton(text="Iscrivi")
 
         row3 = ft.Row([self.btn_cerca_studente, self.btn_cerca_corso, self.btn_iscrivi_studente], alignment=ft.MainAxisAlignment.CENTER)
