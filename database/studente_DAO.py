@@ -71,14 +71,16 @@ class StudenteDAO:
         cursor.execute(query, (codins, matr))
         res = []
         for row in cursor:
-            res.append((row["nome"], row["cognome"]))
+            res.append(row["nome"])
+            res.append(row["cognome"])
         cnx.close()
         return res
 
 
 if __name__ == "__main__":
-    res = StudenteDAO.get_num_studenti_corso("02CIXPG")
+    res = StudenteDAO.get_studente_in_corso_from_matricola("01OVZPG", "190635")
     print(res)
     print(type(res))
     print(res[0])
+
 

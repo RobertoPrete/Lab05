@@ -58,9 +58,14 @@ class Controller:
             codins = self._view.select_corso.value
             matricola = e.control.value
             studente = StudenteDAO.get_studente_in_corso_from_matricola(codins, matricola)
-            #fare un check perchè dà un errore di tipo IndexError
-            self._view.txt_nome.value = studente[0]
-            self._view.txt_cognome.value = studente[1]
+            if len(studente) == 0:
+                self._view.txt_nome.value = ""
+                self._view.txt_cognome.value = ""
+                self._view.create_alert("Matricola non presente nel corso")
+                self._view.txt_matricola.value = ""
+            else:
+                self._view.txt_nome.value = studente[0]
+                self._view.txt_cognome.value = studente[1]
             self._view.update_page()
 
     def handle_riempi_matricola(self, e):
